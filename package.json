@@ -4,7 +4,9 @@
   "description": "Proyecto para aplicar los 12 factores",
   "main": "main.js",
   "scripts": {
-    "test": ""
+    "startdb": "node database.js",
+    "start": "node main.js",
+    "seed": ""
   },
   "author": "Victor Gomez",
   "license": "ISC",
