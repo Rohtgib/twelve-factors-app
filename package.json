@@ -4,14 +4,14 @@
   "description": "Proyecto para aplicar los 12 factores",
   "main": "main.js",
   "scripts": {
-    "startdb": "node database.js",
     "start": "node main.js",
-    "seed": ""
+    "seed": "node importdata.js"
   },
   "author": "Victor Gomez",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.1",
+    "dotenv": "^16.0.1",
     "express": "^4.18.2",
     "mongodb": "^5.0.1",
     "mongoose": "^6.9.2",

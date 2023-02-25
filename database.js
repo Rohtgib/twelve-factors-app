@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const mongooseClient = require("mongoose");
 
 mongooseClient.connect(

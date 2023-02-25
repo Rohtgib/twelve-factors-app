@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const body_parser = require("body-parser");
 const path = require("path");
@@ -6,6 +8,23 @@ const pug = require("pug");
 const Notes = require("./database");
 const updateRouter = require("./update-router");
 const app = express();
+
+const cluster = require("cluster");
+const totalCPUs = require("os").cpus().length;
+ 
+if (cluster.isMaster) {
+  console.log(`Number of CPUs is ${totalCPUs}`);
+  console.log(`Master ${process.pid} is running`);
+ 
+  // Fork workers.
+  for (let i = 0; i < totalCPUs; i++) {
+    cluster.fork();
+  }
+ 
+  cluster.on("exit", (worker, code, signal) => {
+    cluster.fork();
+  });
+} else {
 
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
@@ -87,6 +106,7 @@ app.post("/updatepage", (req, res, next) => {
   return next();
 });
 
-app.listen((arg) => {
+app.listen(process.env.PORT,() => {
   console.log("Server started.");
 });
+}
